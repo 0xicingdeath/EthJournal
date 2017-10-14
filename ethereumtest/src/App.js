@@ -8,7 +8,6 @@ import * as BigNumber from 'bignumber.js';
 class App extends Component {
   async componentDidMount () { 
 
-
             const provider = new Web3.providers.HttpProvider('http://localhost:8545'); 
 
             const zeroEx = new ZeroEx (provider); 
@@ -38,7 +37,30 @@ class App extends Component {
             const ethToConvert = ZeroEx.toBaseUnitAmount(new BigNumber(1), DECIMALS); // Number of ETH to convert to WETH
 
             const txHashWETH = await zeroEx.etherToken.depositAsync(ethToConvert, takerAddress);
-            await zeroEx.awaitTransactionMinedAsync(txHashWETH)            
+            await zeroEx.awaitTransactionMinedAsync(txHashWETH) 
+
+            // Generate order
+            const order = { 
+                maker: makerAddress, 
+                taker: NULL_ADDRESS,
+                feeRecipient: NULL_ADDRESS,
+                makerTokenAddress: ZRX_ADDRESS,
+                takerTokenAddress: WETH_ADDRESS,
+                exchangeContractAddress: EXCHANGE_ADDRESS,
+                salt: ZeroEx.generatePseudoRandomSalt(),
+                makerFee: new BigNumber(0),
+                takerFee: new BigNumber(0),
+                makerTokenAmount: ZeroEx.toBaseUnitAmount(new BigNumber(0.2), DECIMALS); 
+                takerTokenAmount: ZeroEx.toBaseUnitAmount(new BigNumber(0.3), DECIMALS); 
+                expirationUnixTimestampSec: new BigNumber(Date.now() + 3600000),          
+              };            
+              console.log(order); 
+
+              const orderHash = ZeroEx.getOrderHashHex(order);
+
+              console.log(orderHash);
+
+
   }
   render() {
     return (
