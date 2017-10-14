@@ -1,0 +1,20 @@
+{
+  "name": "ethereumtest",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "0x.js": "^0.20.0",
+    "bignumber.js": "^4.1.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.14",
+    "web3": "^0.18.4",
+    "web3-provider-engine": "^11.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
